@@ -56,7 +56,7 @@ class _QuestionsState extends State<Questions> {
           stream: controller.QuestionsDocs,
           builder: (context, AsyncSnapshot snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator.adaptive(
                       backgroundColor: Colors.greenAccent,
                     ),

@@ -40,6 +40,7 @@ var obj={};
 
       value.sort();
   var rank=   value.getRange(value.length - 10, value.length).toList();
+
   print(rank);
       for(var i=0;i<=9;i++){
       print(i);
@@ -51,7 +52,8 @@ var obj={};
           .then((value) => {
 
         value.docs.forEach((element) {
-          obj[element.id]=rank[i];
+
+          obj[i]=[element.id,rank[i]];
           print(obj);
 
         })
@@ -64,6 +66,16 @@ var obj={};
 
     return obj;
   }
+  Future getTotal(String doc)async{
+    int total=0;
+   await firestore.collection('total').doc(doc).get().then((value) =>
+       total=value.get('total')
+
+    );
+   print(total);
+   return total;
+  }
+
 
   var getQuiz = firestore.collection('quiz').snapshots();
 
