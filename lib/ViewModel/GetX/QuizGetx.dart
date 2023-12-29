@@ -1,4 +1,5 @@
 import 'package:dashboard/Models/options.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../constant.dart';
@@ -11,6 +12,7 @@ class QuizGetX extends GetxController {
   String? imageUrl = '';
   String desc = '';
   String name = "";
+  String coin = "";
 
   String date = "", startTime = "", endTime = "";
   int? rank1,
@@ -94,10 +96,11 @@ var obj={};
     });
   }
 
-  Future createQuiz() async {
+  Future createQuiz(BuildContext context) async {
     await firestore.collection('quiz').add({
       'selected': FieldValue.arrayUnion(selectedOptionList.value),
       'name': name,
+      "typeCoins":coin,
       'imageUrl': imageUrl,
       'min': min,
       'max': max,
@@ -118,8 +121,8 @@ var obj={};
       'price': price,
       'desc': desc
     }).then((value) {
-      Get.snackbar('Quiz', ' Successfully Added');
-      Get.back();
+      Get.snackbar('Quiz', ' Successfully Added',backgroundColor: Colors.white);
+      Navigator.pop(context);
     });
     update();
   }

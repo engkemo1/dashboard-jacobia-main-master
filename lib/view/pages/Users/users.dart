@@ -35,12 +35,11 @@ class Users extends StatelessWidget {
                     : Container(
                         padding: EdgeInsets.all(20),
                         color: appBarColor,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: ListView(
                           children: [
-                            Text(
+                            const Text(
                               "Recent Users",
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: TextStyle(color: Colors.white),
                             ),
                             SingleChildScrollView(
                               child: SizedBox(

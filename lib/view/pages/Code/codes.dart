@@ -68,7 +68,7 @@ class Codes extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
-                                snapshot.data.docs[index]['applied'] == false
+                                snapshot.data.docs[index]['isApplied'] == false
                                     ? 'Not applied'
                                     : 'Applied',
                                 style: TextStyle(color: Colors.white),

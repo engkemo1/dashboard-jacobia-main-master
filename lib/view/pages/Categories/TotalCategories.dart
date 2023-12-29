@@ -33,8 +33,7 @@ class TotalCategories extends StatelessWidget {
                               controller: _nameController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please fill the field'
-                                      ;
+                                  return 'Please fill the field';
                                 }
                                 return null;
                               },
@@ -84,7 +83,7 @@ class TotalCategories extends StatelessWidget {
                                         categoryController.imageUrl =
                                             _imageUrLController.text;
 
-                                        categoryController.postCategory();
+                                        categoryController.postCategory().then((value) => Get.back());
                                         _nameController.clear();
                                         _imageUrLController.clear();
                                       },
@@ -110,7 +109,7 @@ class TotalCategories extends StatelessWidget {
                           style: TextStyle(color: appBarColor),
                         ),
                         onPressed: () {
-                         Get.back();
+                          Get.back();
                         },
                       ),
                     ],
@@ -162,7 +161,8 @@ class TotalCategories extends StatelessWidget {
                             child: Stack(
                               children: [
                                 ClipRRect(
-                                  child: Image.network(snapshot.data.docs[index]['imageUrl']),
+                                  child: Image.network(
+                                      snapshot.data.docs[index]['imageUrl']),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 Align(
@@ -192,7 +192,7 @@ class TotalCategories extends StatelessWidget {
                                                   child: ListBody(
                                                     children: <Widget>[
                                                       TextFormField(
-                                                        initialValue: 'math',
+                                                        controller: _nameController..text= snapshot.data.docs[index]['name'],
                                                         decoration:
                                                             InputDecoration(
                                                           labelText:
@@ -217,8 +217,8 @@ class TotalCategories extends StatelessWidget {
                                                         height: 20,
                                                       ),
                                                       TextFormField(
-                                                        initialValue:
-                                                            'image/daasdasdffaadc.adasdadaas.png',
+                                                        controller: _imageUrLController..text= snapshot.data.docs[index]['imageUrl'],
+
                                                         decoration:
                                                             InputDecoration(
                                                           labelText:
@@ -243,7 +243,14 @@ class TotalCategories extends StatelessWidget {
                                                         height: 20,
                                                       ),
                                                       ElevatedButton(
-                                                        onPressed: () {},
+                                                        onPressed: () async {
+                                                         await firestore
+                                                              .collection(
+                                                                  'category')
+                                                              .doc(snapshot.data.docs[index].id)
+                                                              .delete();
+                                                         Get.back();
+                                                        },
                                                         child: Text('Delete'),
                                                         style: ButtonStyle(
                                                             backgroundColor:
@@ -252,7 +259,25 @@ class TotalCategories extends StatelessWidget {
                                                                         appBarColor)),
                                                       ),
                                                       ElevatedButton(
-                                                        onPressed: () {},
+                                                        onPressed: () async{
+                                                      await    firestore
+                                                              .collection(
+                                                                  'category')
+                                                              .doc(snapshot.data.docs[index].id)
+                                                              .update({
+                                                            "imageUrl":
+                                                                _imageUrLController
+                                                                    .text,
+                                                            "name":
+                                                                _nameController
+                                                                    .text
+                                                          }).then((value) {
+                                                            Get.back();
+                                                            Get.snackbar(
+                                                                'Jacobia',
+                                                                "Successfully updated");
+                                                          });
+                                                        },
                                                         child: Text('Save'),
                                                         style: ButtonStyle(
                                                             backgroundColor:
@@ -271,7 +296,7 @@ class TotalCategories extends StatelessWidget {
                                                           color: appBarColor),
                                                     ),
                                                     onPressed: () {
-                                                     Get.back();
+                                                      Get.back();
                                                     },
                                                   ),
                                                 ],

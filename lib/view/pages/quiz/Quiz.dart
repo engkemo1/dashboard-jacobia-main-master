@@ -19,10 +19,11 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         actions: [
           SizedBox(
             height: 30,
-            width: 100,
+            width: 150,
             child: ElevatedButton(
               onPressed: () {
                 showDialog<void>(
@@ -43,7 +44,7 @@ class _QuizState extends State<Quiz> {
             ),
           )
         ],
-        title: const Text('Quiz'),
+        title: const Text('Quiz',style: TextStyle(color: Colors.white),),
         backgroundColor: appBarColor,
         elevation: 0,
       ),

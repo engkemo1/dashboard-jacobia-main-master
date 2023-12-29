@@ -17,7 +17,15 @@ final TextEditingController _passwordController = TextEditingController();
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   var rememberValue = false;
+  var _passwordVisible = false;
 
+  @override
+  void initState() {
+  _passwordVisible = false;
+
+  // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var authController =AuthController();
@@ -91,10 +99,25 @@ class _LoginPageState extends State<LoginPage> {
                       },
 
                       maxLines: 1,
-                      obscureText: true,
+                      obscureText: !_passwordVisible,//This will obscure text dynamically
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
 
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.greenAccent,
+                          ),
+                          onPressed: () {
+                            // Update the state i.e. toogle the state of passwordVisible variable
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
                         prefixIcon: const Icon(Icons.lock,color: Colors.grey,),
                         hintText: 'Enter your password',
                         hintStyle: TextStyle(color: Colors.white),

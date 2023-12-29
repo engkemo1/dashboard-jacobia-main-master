@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dashboard/view/pages/HomeScreen.dart';
+import 'package:dashboard/view/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,6 +51,7 @@ class AuthController extends GetxController {
   void signOut() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     CacheHelper.removeData(key: 'user');
+    Get.to(LoginPage());
 
   }
 }
