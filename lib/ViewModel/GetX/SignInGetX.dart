@@ -18,7 +18,6 @@ class AuthController extends GetxController {
 
 
   void loginUser(String email, String password) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
