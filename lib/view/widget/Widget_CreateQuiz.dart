@@ -49,7 +49,7 @@ class _CreateQuizState extends State<CreateQuiz> {
   String coin = 'RedCoins';
 
   String _endDate =
-      DateFormat('hh:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
+      DateFormat('HH:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
   var timelist = [
     '10 Minutes',
     '15 Minutes',
