@@ -49,7 +49,7 @@ class _CreateQuizState extends State<CreateQuiz> {
   String coin = 'RedCoins';
 
   String _endDate =
-  DateFormat('hh:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
+      DateFormat('hh:mm:ss').format(DateTime.now().add(Duration(minutes: 15)));
   var timelist = [
     '10 Minutes',
     '15 Minutes',
@@ -205,22 +205,22 @@ class _CreateQuizState extends State<CreateQuiz> {
                     ),
                     Expanded(
                         child: InputField(
-                          texth: 15,
-                          controller: _endTimeController,
-                          isEnabled: false,
-                          iconOrdrop: 'button',
-                          label: 'End Time',
-                          hint: _endDate.toString(),
-                          widget: IconButton(
-                            icon: const Icon(
-                              Icons.access_time,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              _selectEndTime(context);
-                            },
-                          ),
-                        ))
+                      texth: 15,
+                      controller: _endTimeController,
+                      isEnabled: false,
+                      iconOrdrop: 'button',
+                      label: 'End Time',
+                      hint: _endDate.toString(),
+                      widget: IconButton(
+                        icon: const Icon(
+                          Icons.access_time,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _selectEndTime(context);
+                        },
+                      ),
+                    ))
                   ],
                 ),
                 const SizedBox(
@@ -235,8 +235,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                   widget: DropdownButton(
                     items: timelist
                         .map<DropdownMenuItem<String>>(
-                            (value) =>
-                            DropdownMenuItem<String>(
+                            (value) => DropdownMenuItem<String>(
                                 value: value.toString(),
                                 child: Text(
                                   '$value',
@@ -271,8 +270,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                   widget: DropdownButton(
                     items: typeCoin
                         .map<DropdownMenuItem<String>>(
-                            (value) =>
-                            DropdownMenuItem<String>(
+                            (value) => DropdownMenuItem<String>(
                                 value: value.toString(),
                                 child: Text(
                                   '$value',
@@ -472,6 +470,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    print(_startDate);
                     controller.price = int.tryParse(priceController.text);
                     controller.profit = int.tryParse(profitController.text);
                     controller.imageUrl = imageUrlController.text;
@@ -517,7 +516,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                   },
                   style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all(Colors.greenAccent)),
+                          MaterialStateProperty.all(Colors.greenAccent)),
                   child: const Text(
                     'Save',
                     style: TextStyle(color: Colors.white),
@@ -548,13 +547,14 @@ class _CreateQuizState extends State<CreateQuiz> {
       initialTime: TimeOfDay.now(),
     );
 
+    var date = join(DateTime.parse(_selectedDate), selected!);
+    print(date);
+    var formattedTime = DateFormat("HH:mm:ss").format(date);
+    print(formattedTime);
 
-    var date=  join(DateTime.parse(_selectedDate), selected!);
-    var formattedTime= DateFormat("hh:mm:ss").format(date);
     setState(() {
       _startDate = formattedTime;
     });
-
   }
 
   _selectEndTime(BuildContext context) async {
@@ -563,19 +563,23 @@ class _CreateQuizState extends State<CreateQuiz> {
       initialTime: TimeOfDay.now(),
     );
 
-
-
-  var date=  join(DateTime.parse(_selectedDate), selected!);
-   var formattedTime= DateFormat("hh:mm:ss").format(date);
+    var date = join(DateTime.parse(_selectedDate), selected!);
+    print(date);
+    var formattedTime = DateFormat("HH:mm:ss").format(date);
+    print(formattedTime);
     // Conversion logic starts here
     setState(() {
       _endDate = formattedTime;
       print(formattedTime);
     });
   }
+
   DateTime join(DateTime date, TimeOfDay time) {
-    return new DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    print(time.hour);
+    return new DateTime(
+        date.year, date.month, date.day, time.hour, time.minute);
   }
+
   _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
