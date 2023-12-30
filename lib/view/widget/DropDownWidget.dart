@@ -11,7 +11,7 @@ class InputField extends StatefulWidget {
         required this.hint,
         this.widget,
         required this.iconOrdrop,
-        required this.isEnabled, required this.texth})
+        required this.isEnabled, required this.texth, this.isValidate=true})
       : super(key: key);
   final String label;
   final TextEditingController? controller;
@@ -20,6 +20,8 @@ class InputField extends StatefulWidget {
   final String iconOrdrop;
   final Widget? widget;
   final bool isEnabled;
+  final bool isValidate;
+
   final double texth;
 
 
@@ -46,11 +48,11 @@ class _InputFieldState extends State<InputField> {
         TextFormField(
           readOnly: !widget.isEnabled,
           controller: widget.controller,
-          validator: (value) {
+          validator:widget.isValidate? (value) {
             if (value.toString().isEmpty) {
               return 'Please Enter ${widget.label}';
             }
-          },
+          }:null,
           cursorColor:  Colors.white,
           style: TextStyle(color:  Colors.white,fontWeight: FontWeight.normal),
           decoration: InputDecoration(

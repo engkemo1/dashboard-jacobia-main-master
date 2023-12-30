@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         return null;
                       },
-
                       maxLines: 1,
                       obscureText: !_passwordVisible,//This will obscure text dynamically
                       style: TextStyle(color: Colors.white),

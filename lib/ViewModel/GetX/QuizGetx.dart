@@ -26,9 +26,10 @@ class QuizGetX extends GetxController {
       rank9,
       rank10,
       min,
-      max,
-      profit,
+      max;
+  double?  profit,
       price;
+
 
   Future getRanks(String collection) async {
     List<int> ranks = [];
@@ -97,6 +98,7 @@ var obj={};
   }
 
   Future createQuiz(BuildContext context) async {
+    print(price);
     await firestore.collection('quiz').add({
       'selected': FieldValue.arrayUnion(selectedOptionList.value),
       'name': name,

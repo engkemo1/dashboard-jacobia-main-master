@@ -162,6 +162,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                 InputField(
                   texth: 15,
                   controller: _dateController,
+                  isValidate: false,
+
                   isEnabled: false,
                   hint: '${_selectedDate.toString()}',
                   label: 'Date',
@@ -185,6 +187,7 @@ class _CreateQuizState extends State<CreateQuiz> {
                       child: InputField(
                         texth: 15,
                         isEnabled: false,
+                        isValidate: false,
                         controller: _startTimeController,
                         label: 'Start Time',
                         iconOrdrop: 'button',
@@ -208,7 +211,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                       texth: 15,
                       controller: _endTimeController,
                       isEnabled: false,
-                      iconOrdrop: 'button',
+                          isValidate: false,
+
+                          iconOrdrop: 'button',
                       label: 'End Time',
                       hint: _endDate.toString(),
                       widget: IconButton(
@@ -229,6 +234,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                 InputField(
                   controller: _timeController,
                   isEnabled: false,
+                  isValidate: false,
+
                   hint: '${time.toString()}',
                   label: 'Quiz Time',
                   iconOrdrop: 'drop',
@@ -265,6 +272,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                 InputField(
                   isEnabled: false,
                   hint: coin,
+                  isValidate: false,
+
                   label: 'typeCoins',
                   iconOrdrop: 'drop',
                   widget: DropdownButton(
@@ -444,6 +453,11 @@ class _CreateQuizState extends State<CreateQuiz> {
                   maxLines: 5,
                   controller: descController,
                   keyboardType: TextInputType.multiline,
+                  validator: (value) {
+                    if (value.toString().isEmpty) {
+                      return 'Please Enter Description';
+                    }
+                  },
                   decoration: InputDecoration(
                       labelText: "Description",
                       labelStyle: const TextStyle(
@@ -470,9 +484,9 @@ class _CreateQuizState extends State<CreateQuiz> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    print(_startDate);
-                    controller.price = int.tryParse(priceController.text);
-                    controller.profit = int.tryParse(profitController.text);
+
+                    controller.price = double.tryParse(priceController.text);
+                    controller.profit = double.tryParse(profitController.text);
                     controller.imageUrl = imageUrlController.text;
                     controller.name = nameController.text;
                     controller.max = int.tryParse(maxController.text);
@@ -490,29 +504,18 @@ class _CreateQuizState extends State<CreateQuiz> {
                     controller.rank6 = int.tryParse(rank6Controller.text);
                     controller.rank7 = int.tryParse(rank7Controller.text);
                     controller.rank8 = int.tryParse(rank8Controller.text);
-                    controller.rank9 = int.tryParse(rank9Controller.text);
+                    controller.rank9 = int. tryParse(rank9Controller.text);
                     controller.rank10 = int.tryParse(rank10Controller.text);
-                    if (priceController.text.isEmpty ||
-                        profitController.text.isEmpty ||
-                        imageUrlController.text.isEmpty ||
-                        maxController.text.isEmpty ||
-                        minController.text.isEmpty ||
-                        descController.text.isEmpty ||
-                        nameController.text.isEmpty ||
-                        rank1Controller.text.isEmpty ||
-                        rank2Controller.text.isEmpty ||
-                        rank3Controller.text.isEmpty ||
-                        rank4Controller.text.isEmpty ||
-                        rank5Controller.text.isEmpty ||
-                        rank6Controller.text.isEmpty ||
-                        rank7Controller.text.isEmpty ||
-                        rank8Controller.text.isEmpty ||
-                        rank9Controller.text.isEmpty ||
-                        rank10Controller.text.isEmpty) {
-                      Get.snackbar('Something error', 'please fill all fields');
-                    } else {
-                      controller.createQuiz(context);
+                    if(_formKey.currentState!.validate()){
+                      if(optionsList.isEmpty){
+Get.snackbar("Error"," Please select category");
+                      }else{
+                        controller.createQuiz(context);
+
+                      }
+
                     }
+
                   },
                   style: ButtonStyle(
                       backgroundColor:
