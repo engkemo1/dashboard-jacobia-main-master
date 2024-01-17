@@ -42,14 +42,17 @@ class _QuestionsState extends State<Questions> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(Icons.add_circle_outline,color: Colors.greenAccent,),
+            icon: Icon(
+              Icons.arrow_forward,
+              color: appBarColor,
+            ),
             onPressed: () {
               Get.to(CreateQuestion());
             },
           ),
         ],
-        title: Text('Questions'),
-        backgroundColor: appBarColor,
+        title: Text('Add Questions'),
+        backgroundColor: Colors.greenAccent,
         elevation: 100,
       ),
       body: StreamBuilder(
@@ -69,9 +72,25 @@ class _QuestionsState extends State<Questions> {
                           return Column(
                             children: [
                               ListTile(
-                                subtitle: Text(
-                                  "Answer: ${snapshot.data.docs[index]['type'] == 'options' ? snapshot.data.docs[index]['answer'] == 1 ? snapshot.data.docs[index]['option1'] : snapshot.data.docs[index]['answer'] == 2 ? snapshot.data.docs[index]['option2'] : snapshot.data.docs[index]['answer'] == 3 ? snapshot.data.docs[index]['option3'] : snapshot.data.docs[index]['answer'] == 4 ? snapshot.data.docs[index]['option4'] : snapshot.data.docs[index]['option5'] : snapshot.data.docs[index]['answer']}",
-                                  style: TextStyle(color: Colors.white),
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Divider(
+                                      color: Colors.grey.withOpacity(0.2),
+                                    ),
+                                    Text(
+                                      "Answer: ${snapshot.data.docs[index]['type'] == 'options' ? snapshot.data.docs[index]['answer'] == 1 ? snapshot.data.docs[index]['option1'] : snapshot.data.docs[index]['answer'] == 2 ? snapshot.data.docs[index]['option2'] : snapshot.data.docs[index]['answer'] == 3 ? snapshot.data.docs[index]['option3'] : snapshot.data.docs[index]['answer'] == 4 ? snapshot.data.docs[index]['option4'] : snapshot.data.docs[index]['option5'] : snapshot.data.docs[index]['answer']}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Divider(
+                                      color: Colors.grey.withOpacity(0.2),
+                                    ),
+                                    Text(
+                                      "Type: ${snapshot.data.docs[index]['selected']}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                                 title: Text(
                                     "Question: ${snapshot.data.docs[index]['question']}",
@@ -98,11 +117,13 @@ class _QuestionsState extends State<Questions> {
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(height: 30,),
-
+                                                    SizedBox(
+                                                      height: 30,
+                                                    ),
                                                     Row(
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         ElevatedButton.icon(
                                                             icon: const Icon(
@@ -111,12 +132,14 @@ class _QuestionsState extends State<Questions> {
                                                             ),
                                                             style: ElevatedButton
                                                                 .styleFrom(
-                                                                primary:
-                                                                Colors.red),
+                                                                    primary:
+                                                                        Colors
+                                                                            .red),
                                                             onPressed: () {
                                                               Get.back();
                                                             },
-                                                            label: Text("cancel")),
+                                                            label:
+                                                                Text("cancel")),
                                                         const SizedBox(
                                                           width: 20,
                                                         ),
@@ -127,21 +150,28 @@ class _QuestionsState extends State<Questions> {
                                                             ),
                                                             style: ElevatedButton
                                                                 .styleFrom(
-                                                                primary:
-                                                                Colors.red),
+                                                                    primary:
+                                                                        Colors
+                                                                            .red),
                                                             onPressed: () {
                                                               firestore
-                                                                  .collection('question')
-                                                                  .doc(snapshot.data.docs[index].id)
-                                                                  .delete();                                                            },
-                                                            label: const Text("Delete"))
+                                                                  .collection(
+                                                                      'question')
+                                                                  .doc(snapshot
+                                                                      .data
+                                                                      .docs[
+                                                                          index]
+                                                                      .id)
+                                                                  .delete();
+                                                            },
+                                                            label: const Text(
+                                                                "Delete"))
                                                       ],
                                                     )
                                                   ],
                                                 ),
                                               ));
                                         });
-
                                   },
                                 ),
                                 isThreeLine: true,
